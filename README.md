@@ -16,10 +16,37 @@ domain: YOUR_WEBSITE_DOMAIN_NAME
 dir: PUBLIC_DIRECTORY_TO_BE_PUBLISHED
 command: STATIC_SITE_GENERATOR_COMMAND
 pinata:
-    jwtToken: JWT_TOKEN_FROM_PINATA
+  jwtToken: $PINATA_TOKEN
 cloudflare:
-  apiKey: API_KEY_FROM_CLOUDFLARE
-  zoneId: ZONE_ID_FROM_CLOUDFLARE
+  apiKey: $CLOUDFLARE_KEY
+  zoneId: $CLOUDFLARE_ZONEID
 ```
 
 Once you have the publish.yaml, you can just use `publish` to publish your site.
+
+## Usage as GitHub Action
+This repository can be used as an action for your GitHub Actions Workflow. Below is an example showing how to use this action to publish your site every time you push changes.
+```
+on: [push]
+
+jobs:
+  ipfs_publisher_job:
+    runs-on: ubuntu-latest
+    name: A job to publish the static site to IPFS
+    steps:
+    - id: checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+    - id: publish
+      uses: sha224/ipfs-publisher@v1
+      env:
+        DEFAULT_BRANCH: master
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PINATA_TOKEN: ${{ secrets.PINATA_TOKEN }}
+        CLOUDFLARE_KEY: ${{ secrets.CLOUDFLARE_KEY }}
+        CLOUDFLARE_ZONEID: ${{ secrets.CLOUDFLARE_ZONEID }}
+```
+This goes inside `.github/workflows/main.yml` in your repository. Remember to populate the secrets in your repository settings.
+
+Note that hugo is the only command supported out of the box right now. However, if you are using something else, you can add a step to install your static site generator package.
