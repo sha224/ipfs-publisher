@@ -1,0 +1,11 @@
+name: 'IPFS Publisher'
+description: 'Publish a static site to IPFS'
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      run: sudo snap install yq jq hugo
+      shell: bash
+    - name: Publish
+      run: ${{ github.action_path }}/publish.sh
+      shell: bash
