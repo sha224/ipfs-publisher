@@ -1,5 +1,8 @@
 name: 'IPFS Publisher'
 description: 'Publish a static site to IPFS'
+branding:
+  icon: 'upload'
+  color: 'blue'
 runs:
   using: "composite"
   steps:
