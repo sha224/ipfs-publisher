@@ -1,5 +1,5 @@
 # IPFS Publisher
-A tool to publish a static site to IPFS
+A tool to build a static site, publish it to IPFS and update the dnslink record.
 
 ## Installation
 Ensure that you have curl, jq and yq installed. Clone this repository and install it simply by doing:

@@ -1,5 +1,5 @@
 name: 'IPFS Publisher'
-description: 'Publish a static site to IPFS'
+description: 'Publish a static site to IPFS and update dnslink'
 branding:
   icon: 'upload'
   color: 'blue'
